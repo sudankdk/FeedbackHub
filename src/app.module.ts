@@ -6,8 +6,11 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { User } from './users/entities/user.entity';
+import { ConfigModule } from '@nestjs/config';
 @Module({
-  imports: [AuthModule, UsersModule,TypeOrmModule.forRoot({
+  imports: [AuthModule, UsersModule,ConfigModule.forRoot({
+    isGlobal: true,
+  })  ,TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
       port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3306,

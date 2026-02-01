@@ -1,7 +1,7 @@
 import { Body, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { Repository } from 'typeorm/browser/repository/Repository.js';
+import { Repository } from 'typeorm';
 import { RegisterUserDto } from './dto/registeruser.dto';
 
 @Injectable()
@@ -16,8 +16,17 @@ export class UsersService {
         return this.userRepository.findOneBy({id});
     }
 
-    createUser(@Body() dto:RegisterUserDto): Promise<User>{
+    findByEmail(email:string):Promise<User | null>{
+        return this.userRepository.findOneBy({email});
+    }
+
+    createUser(dto:RegisterUserDto): Promise<User>{
         const newUser = this.userRepository.create(dto);
         return this.userRepository.save(newUser);
+    }
+
+    async duplicateEmail(email: string): Promise<boolean> {
+        const user = await this.userRepository.findOneBy({ email });
+        return user !== null;
     }
 }
