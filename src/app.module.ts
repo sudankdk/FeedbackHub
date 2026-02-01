@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { User } from './users/entities/user.entity';
 import { ConfigModule } from '@nestjs/config';
+import { TaskModule } from './task/task.module';
 @Module({
   imports: [AuthModule, UsersModule,ConfigModule.forRoot({
     isGlobal: true,
@@ -19,7 +20,7 @@ import { ConfigModule } from '@nestjs/config';
       database: process.env.MYSQL_DATABASE,
       entities: [User],
       synchronize: true, // production ma use hunu hudaina 
-  })],
+  }), TaskModule],
   controllers: [AppController],
   providers: [AppService],
 })
