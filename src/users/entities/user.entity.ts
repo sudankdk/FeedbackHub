@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import { PrimaryGeneratedColumn } from "typeorm";
 import { UserRoles } from "../user.types";
-import { Task } from "src/task/entities/task.entity";
+import { Task } from "../../task/entities/task.entity";
 
 @Entity()
 export class User{
